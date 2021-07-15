@@ -1,0 +1,21 @@
+<!DOCTYPE html><html>
+    <head>
+        <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <input placeholder="room name">
+        <button value="Join">Join</button>
+        <script>
+            const socket = io('ws://127.0.0.1:4000')
+            socket.on('control', (control) => {
+                console.log(`Control Received: ${control}`)
+            })
+
+            document.querySelector('button').onclick = () => {
+                const groom = document.querySelector('input').value;
+                socket.emit('join-room', groom)
+
+            }
+        </script>
+    </body>
+</html>
