@@ -1,20 +1,38 @@
 <!DOCTYPE html><html>
     <head>
         <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     </head>
     <body>
         <input placeholder="room name">
         <button value="Join">Join</button>
+        <div id="container">
+            <video id="player" playsinline controls>
+                <source src="some.mp4" type="video/mp4" />
+            </video>
+        </div>
+        <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script>
+            const player = new Plyr('#player');
             const socket = io('ws://127.0.0.1:4000')
             socket.on('control', (control) => {
                 console.log(`Control Received: ${control}`)
+                control = control.split("-")
+                var command = control[0]
+                var currentTime = parseFloat(control[1])
+                if(command == "PLAY"){
+                    player.currentTime = currentTime
+                    player.play()
+                } else if(command == "PAUSE"){
+                    player.currentTime = currentTime
+                    player.pause()
+                } else if(command == "SEEK"){
+                    player.currentTime = currentTime
+                }
             })
-
             document.querySelector('button').onclick = () => {
                 const groom = document.querySelector('input').value;
                 socket.emit('join-room', groom)
-
             }
         </script>
     </body>

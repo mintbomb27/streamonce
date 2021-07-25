@@ -1,12 +1,20 @@
 <!DOCTYPE html><html>
     <head>
         <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
     </head>
     <body>
-        <input placeholder="control">
-        <button value="Send">Send</button>
+        <div>
+            <div id="container">
+                <video id="player" playsinline controls>
+                    <source src="some.mp4" type="video/mp4" />
+                </video>
+            </div>
+        </div>
+         <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script defer>
             const socket = io('ws://127.0.0.1:4000')
+            const player = new Plyr('#player');
             socket.emit('create-room')
             var groom = 'room-test'
             socket.on('announce-room', (room) => {
@@ -16,9 +24,21 @@
 
             document.querySelector('button').onclick = () => {
                 const text = document.querySelector('input').value;
-                console.log('Sending message'+text)
-                socket.emit('control', text)
+                console.log('Sending message '+text)
+                socket.emit('control', "Hello Ping")//PLAY-10:01 PAUSE-10:00 SEEK-10:00
             }
+            player.on('play', event =>{
+                console.log('Played')
+                socket.emit('control', `PLAY-${player.currentTime}`)
+            });
+            player.on('pause', event =>{
+                console.log('Paused')
+                socket.emit('control', `PAUSE-${player.currentTime}`)
+            });
+            player.on('seek', event =>{
+                console.log('Seeked')
+                socket.emit('control', `SEEK-${player.currentTime}`)
+            });
         </script>
     </body>
 </html>
