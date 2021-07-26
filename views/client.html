@@ -15,19 +15,29 @@
         <script>
             const player = new Plyr('#player');
             const socket = io('ws://127.0.0.1:4000')
-            socket.on('control', (control) => {
-                console.log(`Control Received: ${control}`)
-                control = control.split("-")
-                var command = control[0]
-                var currentTime = parseFloat(control[1])
-                if(command == "PLAY"){
+            socket.on('control', (control_) => {
+                console.log(`Control Received: ${control_}`)
+                var split = control_.indexOf("-")
+                var control = control_.slice(0, split)
+                var param = control_.slice(split+1)
+                var currentTime = parseFloat(param)
+                console.log("PLAY" == control)
+                
+                if(control == "PLAY"){
                     player.currentTime = currentTime
                     player.play()
-                } else if(command == "PAUSE"){
+                } else if(control == "PAUSE"){
                     player.currentTime = currentTime
                     player.pause()
-                } else if(command == "SEEK"){
+                } else if(control == "SEEK"){
                     player.currentTime = currentTime
+                } else if(control == "VIDEO"){
+                    player.source = {
+                    type: 'video',
+                    title: 'Streaming Video',
+                    sources: [
+                        {src: param}
+                    ]}
                 }
             })
             document.querySelector('button').onclick = () => {

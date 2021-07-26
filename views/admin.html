@@ -5,6 +5,8 @@
     </head>
     <body>
         <div>
+            <p>Room ID: </p>
+            <input placeholder="Change Video Stream"><button>Stream</button>
             <div id="container">
                 <video id="player" playsinline controls>
                     <source src="some.mp4" type="video/mp4" />
@@ -20,13 +22,21 @@
             socket.on('announce-room', (room) => {
                 console.log(`Room Received: ${room}`)
                 groom = room
+                document.querySelector('p').innerHTML = `Room ID: ${groom}`
             })
 
             document.querySelector('button').onclick = () => {
                 const text = document.querySelector('input').value;
                 console.log('Sending message '+text)
-                socket.emit('control', "Hello Ping")//PLAY-10:01 PAUSE-10:00 SEEK-10:00
+                socket.emit('control', `VIDEO-${text}`)
+                player.source = {
+                    type: 'video',
+                    title: 'Streaming Video',
+                    sources: [
+                        {src: text}
+                    ]}
             }
+            //PLAY-10:01 PAUSE-10:00 SEEK-10:00
             player.on('play', event =>{
                 console.log('Played')
                 socket.emit('control', `PLAY-${player.currentTime}`)
