@@ -2,10 +2,20 @@
     <head>
         <script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+        <link rel="stylesheet" href="style.css"  />
     </head>
     <body>
-        <input placeholder="room name">
-        <button value="Join">Join</button>
+        <div class="header">
+            <h1>StreamONCE</h1>
+            <p>stream to your heart's content</p>
+          </div>
+          <div class="entry">
+              <br>
+              <br>
+        <input class="form" placeholder="room name">
+        <br>
+        <button class="glow-on-hover" value="Join">Join</button>
+        </div>
         <div id="container">
             <video id="player" playsinline controls>
                 <source src="some.mp4" type="video/mp4" />

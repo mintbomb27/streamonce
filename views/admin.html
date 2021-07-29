@@ -5,15 +5,22 @@
         <link rel="stylesheet" href="style.css"  />
     </head>
     <body>
-        <div>
+        <div class="header">
+            <h1>StreamONCE</h1>
+            <p>stream to your heart's content</p>
+          </div>
+        <div class="entry">
             <p>Room ID: </p>
-            <input placeholder="Change Video Stream"><button>Stream</button>
-            <div id="container">
-                <video id="player" playsinline controls>
-                    <source src="some.mp4" type="video/mp4" />
-                </video>
-            </div>
+            <input class="form" placeholder="Change Video Stream">
+            <br>
+            <button class="glow-on-hover" >Stream</button>
         </div>
+        <div id="container">
+            <video id="player" playsinline controls>
+                <source src="some.mp4" type="video/mp4" />
+            </video>
+        </div>
+        
          <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script defer>
             const socket = io('ws://127.0.0.1:4000')
