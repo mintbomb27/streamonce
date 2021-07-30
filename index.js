@@ -46,11 +46,11 @@ io.on('connection', (socket) =>{
 app.get('/admin',function(req,res) {
     res.sendFile(path.join(__dirname+'/views/admin.html'));
   });
-app.get('/some.mp4',function(req,res) {
-    res.sendFile(path.join(__dirname+'/views/some.mp4'));
-  });
 app.get('/client',function(req,res) {
     res.sendFile(path.join(__dirname+'/views/client.html'));
+  });
+app.get('/:goTo',function(req,res) {
+    res.sendFile(path.join(__dirname+`/views/${req.params.goTo}`));
   });
   
 
