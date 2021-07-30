@@ -10,7 +10,7 @@
             <p>stream to your heart's content</p>
           </div>
         <div class="entry">
-            <p>Room ID: </p>
+            <p id="room-p">Room ID: </p>
             <input class="form" placeholder="Change Video Stream">
             <br>
             <button class="glow-on-hover" >Stream</button>
@@ -30,7 +30,7 @@
             socket.on('announce-room', (room) => {
                 console.log(`Room Received: ${room}`)
                 groom = room
-                document.querySelector('p').innerHTML = `Room ID: ${groom}`
+                document.querySelector('p#room-p').innerHTML = `Room ID: ${groom}`
             })
 
             document.querySelector('button').onclick = () => {
