@@ -46,18 +46,21 @@ io.on('connection', (socket) =>{
 app.get('/admin',function(req,res) {
     res.sendFile(path.join(__dirname+'/views/admin.html'));
   });
-app.get('/client',function(req,res) {
-    res.sendFile(path.join(__dirname+'/views/client.html'));
+app.get('/client/:client',function(req,res) {
+    if(req.params.client.indexOf('room') == -1) {
+        res.sendFile(path.join(__dirname+`/views/${req.params.client}`));
+    } else {
+        res.sendFile(path.join(__dirname+'/views/client.html'));
+    }
   });
 app.get('/:goTo',function(req,res) {
     res.sendFile(path.join(__dirname+`/views/${req.params.goTo}`));
   });
-  
 
 app.use((req, res) => {
     res.status(400).json("Invalid API request");
 })
 
 module.exports.io = io
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 80
 server.listen(port, () => console.log(`Server started on port ${port}`))

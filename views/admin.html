@@ -23,7 +23,7 @@
         
          <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script defer>
-            const socket = io(`ws://${window.location.hostname}:4000`)
+            const socket = io(`ws://${window.location.hostname}`)
             const player = new Plyr('#player');
             socket.emit('create-room')
             var groom = 'room-test'
@@ -44,11 +44,8 @@
                         sources: [
                             {src: param}
                         ]}
-                    }
-                else {
-                        console.log('Youtube Video Detected')
+                } else {
                         var videoID = param.slice(param.indexOf("=")+1)
-                        console.log(videoID)
                         player.source = {
                         type: 'video',
                         title: 'Streaming Video',
@@ -61,15 +58,15 @@
                     }
                 }
             //PLAY-10:01 PAUSE-10:00 SEEK-10:00
-            player.on('play', event =>{
+            player.on('play', event => {
                 console.log('Played')
                 socket.emit('control', `PLAY-${player.currentTime}`)
             });
-            player.on('pause', event =>{
+            player.on('pause', event => {
                 console.log('Paused')
                 socket.emit('control', `PAUSE-${player.currentTime}`)
             });
-            player.on('seek', event =>{
+            player.on('seek', event => {
                 console.log('Seeked')
                 socket.emit('control', `SEEK-${player.currentTime}`)
             });

@@ -24,7 +24,7 @@
         <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script>
             const player = new Plyr('#player');
-            const socket = io(`ws://${window.location.hostname}:4000`)
+            const socket = io(`ws://${window.location.hostname}`)
             socket.on('control', (control_) => {
                 console.log(`Control Received: ${control_}`)
                 var split = control_.indexOf("-")
@@ -42,7 +42,6 @@
                     player.currentTime = currentTime
                 } else if(control == "VIDEO"){
                     if(param.search('youtube') == -1) {
-                        console.log('Youtube Video Detected')
                         player.source = {
                         type: 'video',
                         title: 'Streaming Video',
@@ -51,9 +50,7 @@
                         ]}
                     }
                     else{
-                        console.log('Youtube Video Detected')
                         var videoID = param.slice(param.indexOf("=")+1)
-                        console.log(videoID)
                         player.source = {
                         type: 'video',
                         title: 'Streaming Video',
@@ -69,6 +66,13 @@
             document.querySelector('button').onclick = () => {
                 const groom = document.querySelector('input').value;
                 socket.emit('join-room', groom)
+            }
+            window.onload = () => {
+                var param = window.location.href.split('/')[4]
+                if(param != undefined){
+                    console.log('Join Link Detected')
+                    socket.emit('join-room', param)
+                }
             }
         </script>
     </body>
