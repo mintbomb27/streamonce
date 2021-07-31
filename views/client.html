@@ -24,7 +24,7 @@
         <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script>
             const player = new Plyr('#player');
-            const socket = io(`ws://${window.location.hostname}`)
+            const socket = io(`wss://${window.location.hostname}`)
             socket.on('control', (control_) => {
                 console.log(`Control Received: ${control_}`)
                 var split = control_.indexOf("-")

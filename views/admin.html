@@ -23,14 +23,14 @@
         
          <script src="https://cdn.plyr.io/3.6.8/plyr.js"></script>
         <script defer>
-            const socket = io(`ws://${window.location.hostname}`)
+            const socket = io(`wss://${window.location.hostname}`)
             const player = new Plyr('#player');
             socket.emit('create-room')
             var groom = 'room-test'
             socket.on('announce-room', (room) => {
                 console.log(`Room Received: ${room}`)
                 groom = room
-                document.querySelector('p#room-p').innerHTML = `Room ID: ${groom}`
+                document.querySelector('p#room-p').innerHTML = `Share Link: https://${window.location.hostname}/client/${groom}`
             })
 
             document.querySelector('button').onclick = () => {
