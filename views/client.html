@@ -67,6 +67,7 @@
                 const groom = document.querySelector('input').value;
                 socket.emit('join-room', groom)
                 document.querySelector('div.entry').innerHTML = "Room Joined!"
+                document.getElementById('container').scrollIntoView()
             }
             window.onload = () => {
                 var param = window.location.href.split('/')[4]
@@ -74,7 +75,7 @@
                     console.log('Join Link Detected')
                     socket.emit('join-room', param)
                     document.querySelector('div.entry').innerHTML = "Room Joined!"
-                    window.location.hash = "container"
+                    document.getElementById('container').scrollIntoView()
                 }
             }
         </script>
