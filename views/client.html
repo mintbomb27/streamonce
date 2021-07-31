@@ -9,7 +9,7 @@
             <h1>StreamONCE</h1>
             <p>stream to your heart's content</p>
           </div>
-          <div class="entry">
+        <div class="entry">
               <br>
               <br>
         <input class="form" placeholder="room name">
@@ -66,12 +66,14 @@
             document.querySelector('button').onclick = () => {
                 const groom = document.querySelector('input').value;
                 socket.emit('join-room', groom)
+                document.querySelector('div.entry').innerHTML = "Room Joined!"
             }
             window.onload = () => {
                 var param = window.location.href.split('/')[4]
                 if(param != undefined){
                     console.log('Join Link Detected')
                     socket.emit('join-room', param)
+                    document.querySelector('div.entry').innerHTML = "Room Joined!"
                 }
             }
         </script>
