@@ -74,6 +74,7 @@
                     console.log('Join Link Detected')
                     socket.emit('join-room', param)
                     document.querySelector('div.entry').innerHTML = "Room Joined!"
+                    window.location.hash = "container"
                 }
             }
         </script>
