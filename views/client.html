@@ -32,7 +32,6 @@
                 var param = control_.slice(split+1)
                 var currentTime = parseFloat(param)
                 console.log("PLAY" == control)
-                
                 if(control == "PLAY"){
                     player.currentTime = currentTime
                     player.play()
@@ -42,12 +41,29 @@
                 } else if(control == "SEEK"){
                     player.currentTime = currentTime
                 } else if(control == "VIDEO"){
-                    player.source = {
-                    type: 'video',
-                    title: 'Streaming Video',
-                    sources: [
-                        {src: param}
-                    ]}
+                    if(param.search('youtube') == -1) {
+                        console.log('Youtube Video Detected')
+                        player.source = {
+                        type: 'video',
+                        title: 'Streaming Video',
+                        sources: [
+                            {src: param}
+                        ]}
+                    }
+                    else{
+                        console.log('Youtube Video Detected')
+                        var videoID = param.slice(param.indexOf("=")+1)
+                        console.log(videoID)
+                        player.source = {
+                        type: 'video',
+                        title: 'Streaming Video',
+                        sources: [
+                            {
+                                src: videoID,
+                                provider: 'youtube'
+                            }
+                        ]}
+                    }
                 }
             })
             document.querySelector('button').onclick = () => {

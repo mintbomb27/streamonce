@@ -34,16 +34,32 @@
             })
 
             document.querySelector('button').onclick = () => {
-                const text = document.querySelector('input').value;
-                console.log('Sending message '+text)
-                socket.emit('control', `VIDEO-${text}`)
-                player.source = {
-                    type: 'video',
-                    title: 'Streaming Video',
-                    sources: [
-                        {src: text}
-                    ]}
-            }
+                const param = document.querySelector('input').value;
+                console.log('Sending message '+param)
+                socket.emit('control', `VIDEO-${param}`)
+                if(param.search('youtube') == -1) {
+                        player.source = {
+                        type: 'video',
+                        title: 'Streaming Video',
+                        sources: [
+                            {src: param}
+                        ]}
+                    }
+                else {
+                        console.log('Youtube Video Detected')
+                        var videoID = param.slice(param.indexOf("=")+1)
+                        console.log(videoID)
+                        player.source = {
+                        type: 'video',
+                        title: 'Streaming Video',
+                        sources: [
+                            {
+                                src: videoID,
+                                provider: 'youtube'
+                            }
+                        ]}
+                    }
+                }
             //PLAY-10:01 PAUSE-10:00 SEEK-10:00
             player.on('play', event =>{
                 console.log('Played')
