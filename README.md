@@ -1,4 +1,7 @@
 # streamonce
+Streamonce is a web platform based on Socket IO that will let you stream videos be it mp4, or even youtube, together with your friends using a synced player. It is built in NodeJS using [Socket.io](https://socket.io).
+
+It is currently hosted in heroku at [https://streamonce.herokuapp.com/admin](https://streamonce.herokuapp.com/admin)
 
 ## contributing Guidlines:
 1. [Clone](https://docs.github.com/en/enterprise/2.13/user/articles/cloning-a-repository) the repo on your mac. `git clone https://github.com/mintbomb27/streamonce.git`
