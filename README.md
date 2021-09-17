@@ -4,7 +4,7 @@ Streamonce is a web platform based on Socket IO that will let you stream videos 
 
 It is currently hosted in heroku at [https://streamonce.herokuapp.com/admin](https://streamonce.herokuapp.com/admin)
 
-## contributing Guidlines:
+## Contributing Guidlines:
 1. [Clone](https://docs.github.com/en/enterprise/2.13/user/articles/cloning-a-repository) the repo on your mac. `git clone https://github.com/mintbomb27/streamonce.git`
 2. Create a branch for the feature you are working on. eg: `git checkout -b LoginUI`
 3. Add the new files `git add .`
